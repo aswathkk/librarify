@@ -1,3 +1,5 @@
+const sha256 = require('sha256');
+
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     firstName: {
@@ -28,6 +30,13 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },
+    password: {
+      type: DataTypes.STRING(64),
+      allowNull: false,
+      set: function(password) {
+        this.setDataValue('password', sha256(password));
+      }
+    },
     admin: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
@@ -35,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     classMethods: {
       associate: (models) => {
-        // associations can be defined here
+        User.belongsToMany(models.Library, { through: 'LibraryUser' });
       }
     }
   });

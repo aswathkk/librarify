@@ -11,9 +11,14 @@ const app = express();
 
 const port = config.port;
 
-models.sequelize.sync({
-    force: false
-}).catch(err => console.log(err));
+models.sequelize
+    .query('SET FOREIGN_KEY_CHECKS = 0', { raw: true })
+    .then((results) => {
+        models.sequelize.sync({
+            force: true
+        })
+        .catch(err => console.log(err));
+    });
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());
