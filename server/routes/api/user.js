@@ -47,7 +47,9 @@ router.post('/login', (req, res) => {
         });
 
     User.findOne({
-        email: email
+        where: {
+            email: email
+        }
     }).then(user => {
         if(!user)
             return res.status(401).json({
@@ -65,7 +67,7 @@ router.post('/login', (req, res) => {
             uid: user.id,
             expires: moment().add('7', 'days')
         }, config.secret);
-        
+
         res.json({
             token: token
         });
