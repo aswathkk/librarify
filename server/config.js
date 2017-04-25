@@ -4,5 +4,6 @@ module.exports = {
         database: 'librarify',
         username: 'root',
         password: ''
-    }
+    },
+    secret: 'topsecret123'
 }
