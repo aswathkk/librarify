@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 import { API_BASE_URL } from './globals';
 
@@ -8,5 +10,14 @@ import { API_BASE_URL } from './globals';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  url = API_BASE_URL;
+  menuIcon = 'menu';
+  showToolbar;
+  constructor(router: Router, location: Location) {
+    router.events.subscribe(val => {
+      if(location.path() == '/login')
+        this.showToolbar = false;
+      else
+        this.showToolbar = true;
+    });
+  }
 }

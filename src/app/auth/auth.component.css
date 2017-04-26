@@ -1,0 +1,55 @@
+md-card {
+    max-width: 360px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+md-card-actions {
+    border-top: 1px solid #eee;
+    text-align: center;
+    font-size: 12px;
+}
+
+md-card-actions a {
+    color: #666;
+    cursor: pointer;
+}
+
+md-card-actions a:hover {
+    color: #333;
+    text-decoration: underline;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.half-width {
+    width: 50%;
+}
+
+.pull-right {
+    float: right;
+}
+
+md-select{
+    font-size: 15px;
+    margin: 1em 0;
+    width: 100%;
+}
+
+.mat-select-trigger {
+    font-size: 14px;
+}
+
+@media(max-width: 720px) {
+    md-card {
+        max-width: 360px;
+        margin: auto;
+        position: initial;
+        transform: none;
+
+    }
+}

@@ -1,4 +1,15 @@
-<md-card>
-  API URL: {{url}}
-</md-card>
-<router-outlet></router-outlet>
+<md-toolbar *ngIf="showToolbar" color="primary">
+  <button (click)="sidenav.toggle()" md-icon-button>
+    <md-icon>{{ menuIcon }}</md-icon>
+  </button>
+  <span>Librarify {{ curR }}</span>
+  <span class="spacer"></span>
+</md-toolbar>
+<md-sidenav-container>
+  <md-sidenav mode="side" #sidenav>
+    Side
+  </md-sidenav>
+  <div class="app-content">
+    <router-outlet></router-outlet>
+  </div>
+</md-sidenav-container>

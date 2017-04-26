@@ -1,0 +1,11 @@
+.spacer {
+    flex: 1 1 auto;
+}
+
+md-sidenav {
+  width: 200px;
+}
+
+.app-content {
+    padding: 20px;
+}
