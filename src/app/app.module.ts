@@ -9,11 +9,15 @@ import 'hammerjs';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';
+import { IsEmailDirective } from './shared/is-email.directive';
+import { TestValDirective } from './shared/test-val.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AuthComponent
+    AuthComponent,
+    IsEmailDirective,
+    TestValDirective
   ],
   imports: [
     BrowserModule,

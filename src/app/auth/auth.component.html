@@ -1,28 +1,39 @@
 <md-card>
   <md-card-title>Signup</md-card-title>
   <md-card-content>
-    <form>
+    <form #form="ngForm" (ngSubmit)="onSubmit(form.value)">
       <md-input-container class="half-width">
-        <input mdInput placeholder="First Name">
+        <input mdInput placeholder="First Name" ngModel required name="firstName">
+        <md-error>First Name is Required</md-error>
       </md-input-container>
       <md-input-container class="half-width pull-right">
-        <input mdInput placeholder="Last Name">
+        <input mdInput placeholder="Last Name" ngModel required name="lastName">
+        <md-error>Last Name is Required</md-error>
       </md-input-container>
-      <md-select placeholder="Gender" class="full-width">
+      <md-select placeholder="Gender" class="full-width" ngModel required name="gender">
         <md-option value="MALE">Male</md-option>
         <md-option value="FEMALE">Female</md-option>
         <md-option value="OTHERS">Others</md-option>
       </md-select>
       <md-input-container class="full-width">
-        <input mdInput placeholder="Email ID">
+        <input mdInput type="email" placeholder="Email ID" ngModel isEmail #email="ngModel" required name="email">
+        <md-error>
+          <span *ngIf="email.errors?.required">Email ID is Required</span>
+          <span *ngIf="!email.errors?.required && email.errors?.email">Invalid Email ID</span>
+        </md-error>
       </md-input-container>
       <md-input-container class="full-width">
-        <input type="password" mdInput placeholder="Password">
+        <input type="password" mdInput placeholder="Password" ngModel #password required name="password">
+        <md-error>Password is Required</md-error>
       </md-input-container>
       <md-input-container class="full-width">
-        <input type="password" mdInput placeholder="Retype Password">
+        <input type="password" mdInput placeholder="Retype Password" ngModel #confirmPassword="ngModel" [testVal]="password.value" required name="confirmPassword">
+        <md-error>
+          <span *ngIf="confirmPassword.errors?.required">Retype Password</span>
+          <span *ngIf="!confirmPassword.errors?.required && confirmPassword.errors?.test">Password does not match</span>
+        </md-error>
       </md-input-container>
-      <button md-raised-button color="primary" class="full-width">SIGN UP</button>
+      <button [disabled]="form.invalid" type="submit" md-raised-button color="primary" class="full-width">SIGN UP</button>
     </form>
   </md-card-content>
   <md-card-actions>
