@@ -25,6 +25,7 @@ router.post('/', (req, res) => {
 
     User.create(req.body)
     .then(u => {
+        // TODO: verification mail
         res.json(u);
     })
     .catch(err => {
@@ -73,5 +74,28 @@ router.post('/login', (req, res) => {
         });
     })
 })
+
+router.post('/reset', (req, res) => {
+    let email = req.body.email;
+    if(!email)
+        return res.status(401).json({
+            code: 0,
+            message: 'Fields Missing'
+        });
+
+    User.findOne({
+        where: {
+            email: email
+        }
+    }).then(user => {
+        if(!user)
+            return res.status(401).json({
+                code: 0,
+                message: 'User not found'
+            });
+        // TODO: Send Email
+        res.json('ok');
+    });
+});
 
 module.exports = router;

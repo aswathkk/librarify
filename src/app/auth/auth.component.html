@@ -51,11 +51,15 @@
         <md-error>
           <span *ngIf="email.errors?.required">Email ID is Required</span>
           <span *ngIf="!email.errors?.required && email.errors?.email">Invalid Email ID</span>
+          <span *ngIf="email.errors?.unique">User not found</span>
         </md-error>
       </md-input-container>
       <md-input-container class="full-width">
         <input type="password" mdInput placeholder="Password" ngModel #password="ngModel" required name="password">
-        <md-error>Password is Required</md-error>
+        <md-error>
+          <span *ngIf="password.errors?.required">Password is Required</span>
+          <span *ngIf="password.errors?.wrong">Wrong Password</span>
+        </md-error>
         <md-hint align="end"><a (click)="navigateTo('/reset-password')">Forgot Password?</a></md-hint>
       </md-input-container>
       <button type="submit" [disabled]="LoginForm.invalid" md-raised-button color="primary" class="full-width">LOGIN</button>

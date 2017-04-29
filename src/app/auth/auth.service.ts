@@ -19,4 +19,18 @@ export class AuthService {
       .toPromise();
   }
 
+  login(data) {
+    const url = `${API_BASE_URL}/user/login`;
+    return this.http.post(url, data)
+      .map(res => res.json())
+      .toPromise();
+  }
+
+  reset(data) {
+    const url = `${API_BASE_URL}/user/reset`;
+    return this.http.post(url, data)
+      .map(res => res.json())
+      .toPromise();
+  }
+
 }

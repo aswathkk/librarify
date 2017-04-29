@@ -50,24 +50,44 @@ export class AuthComponent implements OnInit {
   onSignupSubmit(form) {
     let val = form.value;
     if(val.password !== val.confirmPassword)
-      form.form.controls.confirmPassword.setErrors({match: true});
+      form.form.controls.confirmPassword.setErrors({ match: true });
     if(form.valid)
       this.auth.signup(form.value)
       .then(res => console.log(res))
       .catch(err => {
-        if( JSON.parse(err._body).message === 'email must be unique')
-          form.form.controls.email.setErrors({unique: true});
+        if(JSON.parse(err._body).message === 'email must be unique')
+          form.form.controls.email.setErrors({ unique: true });
         else
           console.log(err);
       });
   }
 
   onLoginSubmit(form) {
-    
+    if(form.valid)
+      this.auth.login(form.value)
+      .then(res => console.log(res))
+      .catch(err => {
+        let message = JSON.parse(err._body).message;
+        if(message === 'User not found')
+          form.form.controls.email.setErrors({ unique: true });
+        else if(message === 'Wrong Password')
+          form.form.controls.password.setErrors({ wrong: true });
+        else
+          console.log(err);
+      });
   }
 
   onResetSubmit(form) {
-
+    if(form.valid)
+      this.auth.reset(form.value)
+      .then(res => console.log(res))
+      .catch(err => {
+        let message = JSON.parse(err._body).message;
+        if(message === 'User not found')
+          form.form.controls.email.setErrors({ unique: true });
+        // else
+          console.log(err);
+      });
   }
 
 }
