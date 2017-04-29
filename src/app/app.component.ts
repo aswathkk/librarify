@@ -14,7 +14,7 @@ export class AppComponent {
   showToolbar;
   constructor(router: Router, location: Location) {
     router.events.subscribe(val => {
-      if(location.path() == '/login')
+      if(location.path().indexOf('/login') === 0 || location.path().indexOf('/signup') === 0 || location.path().indexOf('/reset-password') === 0)
         this.showToolbar = false;
       else
         this.showToolbar = true;

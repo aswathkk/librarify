@@ -10,14 +10,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';
 import { IsEmailDirective } from './shared/is-email.directive';
-import { TestValDirective } from './shared/test-val.directive';
+
+import { AuthService } from './auth/auth.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthComponent,
-    IsEmailDirective,
-    TestValDirective
+    IsEmailDirective
   ],
   imports: [
     BrowserModule,
@@ -27,7 +27,7 @@ import { TestValDirective } from './shared/test-val.directive';
     BrowserAnimationsModule,
     MaterialModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

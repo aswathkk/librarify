@@ -9,3 +9,20 @@ md-sidenav {
 .app-content {
     padding: 20px;
 }
+
+.screen {
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0 16px;
+    flex-direction: column;
+    background: #607D8B;
+}
+
+.screen.hs {
+    height: 50%;
+}
+
+.screen.fs {
+    height: 100%;
+}

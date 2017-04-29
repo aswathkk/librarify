@@ -10,7 +10,15 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'signup',
+    component: AuthComponent
+  },
+  {
     path: 'login',
+    component: AuthComponent
+  },
+  {
+    path: 'reset-password',
     component: AuthComponent
   }
 ];

@@ -1,7 +1,7 @@
-<md-card>
+<md-card *ngIf="form === '/signup'" [@authForm]>
   <md-card-title>Signup</md-card-title>
   <md-card-content>
-    <form #form="ngForm" (ngSubmit)="onSubmit(form.value)">
+    <form #SignupForm="ngForm" (ngSubmit)="onSignupSubmit(SignupForm)">
       <md-input-container class="half-width">
         <input mdInput placeholder="First Name" ngModel required name="firstName">
         <md-error>First Name is Required</md-error>
@@ -20,23 +20,68 @@
         <md-error>
           <span *ngIf="email.errors?.required">Email ID is Required</span>
           <span *ngIf="!email.errors?.required && email.errors?.email">Invalid Email ID</span>
+          <span *ngIf="!email.errors?.required && !email.errors?.email && email.errors?.unique">Email ID already in use</span>
         </md-error>
       </md-input-container>
       <md-input-container class="full-width">
-        <input type="password" mdInput placeholder="Password" ngModel #password required name="password">
+        <input type="password" mdInput placeholder="Password" ngModel #password="ngModel" required name="password">
         <md-error>Password is Required</md-error>
       </md-input-container>
       <md-input-container class="full-width">
-        <input type="password" mdInput placeholder="Retype Password" ngModel #confirmPassword="ngModel" [testVal]="password.value" required name="confirmPassword">
+        <input type="password" mdInput placeholder="Retype Password" ngModel #confirmPassword="ngModel" required name="confirmPassword">
         <md-error>
           <span *ngIf="confirmPassword.errors?.required">Retype Password</span>
-          <span *ngIf="!confirmPassword.errors?.required && confirmPassword.errors?.test">Password does not match</span>
+          <span *ngIf="!confirmPassword.errors?.required && confirmPassword.errors?.match">Password does not match</span>
         </md-error>
       </md-input-container>
-      <button [disabled]="form.invalid" type="submit" md-raised-button color="primary" class="full-width">SIGN UP</button>
+      <button type="submit" [disabled]="SignupForm.invalid" md-raised-button color="primary" class="full-width">SIGN UP</button>
     </form>
   </md-card-content>
   <md-card-actions>
-    <a>Create new Account</a>
+    <a (click)="navigateTo('/login')">Already have Account?</a>
+  </md-card-actions>
+</md-card>
+
+<md-card *ngIf="form === '/login'" [@authForm]>
+  <md-card-title>Login</md-card-title>
+  <md-card-content>
+    <form #LoginForm="ngForm" (ngSubmit)="onLoginSubmit(LoginForm)">
+      <md-input-container class="full-width">
+        <input mdInput type="email" placeholder="Email ID" ngModel isEmail #email="ngModel" required name="email">
+        <md-error>
+          <span *ngIf="email.errors?.required">Email ID is Required</span>
+          <span *ngIf="!email.errors?.required && email.errors?.email">Invalid Email ID</span>
+        </md-error>
+      </md-input-container>
+      <md-input-container class="full-width">
+        <input type="password" mdInput placeholder="Password" ngModel #password="ngModel" required name="password">
+        <md-error>Password is Required</md-error>
+        <md-hint align="end"><a (click)="navigateTo('/reset-password')">Forgot Password?</a></md-hint>
+      </md-input-container>
+      <button type="submit" [disabled]="LoginForm.invalid" md-raised-button color="primary" class="full-width">LOGIN</button>
+    </form>
+  </md-card-content>
+  <md-card-actions>
+    <a (click)="navigateTo('/signup')">Create New Account</a>
+  </md-card-actions>
+</md-card>
+
+<md-card *ngIf="form === '/reset-password'" [@authForm]>
+  <md-card-title>Reset Password</md-card-title>
+  <md-card-content>
+    <form #ResetForm="ngForm" (ngSubmit)="onResetSubmit(ResetForm)">
+      <md-input-container class="full-width">
+        <input mdInput type="email" placeholder="Email ID" ngModel isEmail #email="ngModel" required name="email">
+        <md-error>
+          <span *ngIf="email.errors?.required">Email ID is Required</span>
+          <span *ngIf="!email.errors?.required && email.errors?.email">Invalid Email ID</span>
+          <span *ngIf="!email.errors?.required && email.errors?.unique">User Not found</span>
+        </md-error>
+      </md-input-container>
+      <button type="submit" [disabled]="ResetForm.invalid" md-raised-button color="primary" class="full-width">RESET PASSWORD</button>
+    </form>
+  </md-card-content>
+  <md-card-actions>
+    <a (click)="navigateTo('/signup')">Create New Account</a>
   </md-card-actions>
 </md-card>

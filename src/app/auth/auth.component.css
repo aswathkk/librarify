@@ -4,12 +4,14 @@ md-card {
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
+    transform-style: preserve-3d;
 }
 
 md-card-actions {
     border-top: 1px solid #eee;
     text-align: center;
     font-size: 12px;
+    margin-bottom: 0;
 }
 
 md-card-actions a {
@@ -20,6 +22,10 @@ md-card-actions a {
 md-card-actions a:hover {
     color: #333;
     text-decoration: underline;
+}
+
+button {
+    margin-top: 1em;
 }
 
 .full-width {
@@ -50,6 +56,5 @@ md-select{
         margin: auto;
         position: initial;
         transform: none;
-
     }
 }
