@@ -44,11 +44,6 @@ export class AuthComponent implements OnInit {
     this.form = this.location.path();
   }
 
-  test() {
-    console.log('emitting....');
-    this.screen.emit('half');
-  }
-
   navigateTo(route) {
     this.form = '';
     setTimeout(() => this.router.navigate([route]), 100);
