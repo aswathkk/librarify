@@ -50,6 +50,22 @@ md-select{
     font-size: 14px;
 }
 
+.message {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-family: 'Roboto';
+    font-size: 2em;
+}
+
+.mat-spinner {
+    height: 1em;
+    width: 1em;
+    margin: auto;
+}
+
 @media(max-width: 720px) {
     md-card {
         max-width: 360px;

@@ -1,4 +1,4 @@
-<md-card *ngIf="form === '/signup'" [@authForm]>
+<md-card *ngIf="form === '/signup'" [hidden]="loader" [@authForm]>
   <md-card-title>Signup</md-card-title>
   <md-card-content>
     <form #SignupForm="ngForm" (ngSubmit)="onSignupSubmit(SignupForm)">
@@ -42,7 +42,7 @@
   </md-card-actions>
 </md-card>
 
-<md-card *ngIf="form === '/login'" [@authForm]>
+<md-card *ngIf="form === '/login'" [hidden]="loader" [@authForm]>
   <md-card-title>Login</md-card-title>
   <md-card-content>
     <form #LoginForm="ngForm" (ngSubmit)="onLoginSubmit(LoginForm)">
@@ -70,7 +70,7 @@
   </md-card-actions>
 </md-card>
 
-<md-card *ngIf="form === '/reset-password'" [@authForm]>
+<md-card *ngIf="form === '/reset-password'" [hidden]="loader" [@authForm]>
   <md-card-title>Reset Password</md-card-title>
   <md-card-content>
     <form #ResetForm="ngForm" (ngSubmit)="onResetSubmit(ResetForm)">
@@ -89,3 +89,8 @@
     <a (click)="navigateTo('/signup')">Create New Account</a>
   </md-card-actions>
 </md-card>
+
+<div class="message" *ngIf="loader" [@authForm]>
+  <md-spinner color="accent"></md-spinner>
+  {{ loader }}
+</div>

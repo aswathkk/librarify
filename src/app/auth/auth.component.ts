@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
 import { IsEmailDirective } from '../shared/is-email.directive';
-import { AuthService } from './auth.service'
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -33,13 +33,20 @@ import { AuthService } from './auth.service'
 })
 export class AuthComponent implements OnInit {
   
+  @Output() screen: EventEmitter<any> = new EventEmitter();
   err;
   form;
+  loader = '';
 
   constructor(private router: Router, private location: Location, private auth: AuthService) { }
 
   ngOnInit() {
     this.form = this.location.path();
+  }
+
+  test() {
+    console.log('emitting....');
+    this.screen.emit('half');
   }
 
   navigateTo(route) {
@@ -51,22 +58,31 @@ export class AuthComponent implements OnInit {
     let val = form.value;
     if(val.password !== val.confirmPassword)
       form.form.controls.confirmPassword.setErrors({ match: true });
-    if(form.valid)
+    if(form.valid) {
+      this.loader = 'Registering you, please wait';
+      this.screen.emit('full');
       this.auth.signup(form.value)
       .then(res => console.log(res))
       .catch(err => {
+        this.loader = '';
+        this.screen.emit('half');
         if(JSON.parse(err._body).message === 'email must be unique')
           form.form.controls.email.setErrors({ unique: true });
         else
           console.log(err);
       });
+    }
   }
 
   onLoginSubmit(form) {
-    if(form.valid)
+    if(form.valid) {
+      this.loader = 'Loading';
+      this.screen.emit('full');
       this.auth.login(form.value)
       .then(res => console.log(res))
       .catch(err => {
+        this.loader = '';
+        this.screen.emit('half');
         let message = JSON.parse(err._body).message;
         if(message === 'User not found')
           form.form.controls.email.setErrors({ unique: true });
@@ -75,19 +91,25 @@ export class AuthComponent implements OnInit {
         else
           console.log(err);
       });
+    }
   }
 
   onResetSubmit(form) {
-    if(form.valid)
-      this.auth.reset(form.value)
+    if(form.valid) {
+      this.loader = 'Resetting your password, plesase wait';
+      this.screen.emit('full');
+      this.auth.resetPassword(form.value)
       .then(res => console.log(res))
       .catch(err => {
+        this.loader = '';
+        this.screen.emit('half');
         let message = JSON.parse(err._body).message;
         if(message === 'User not found')
           form.form.controls.email.setErrors({ unique: true });
         // else
           console.log(err);
       });
+    }
   }
 
 }

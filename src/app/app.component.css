@@ -16,13 +16,5 @@ md-sidenav {
     width: 100%;
     padding: 0 16px;
     flex-direction: column;
-    background: #607D8B;
-}
-
-.screen.hs {
-    height: 50%;
-}
-
-.screen.fs {
-    height: 100%;
+    background: #5e35b1;
 }
