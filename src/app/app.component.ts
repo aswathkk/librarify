@@ -29,8 +29,10 @@ export class AppComponent {
 
   constructor(private router: Router, private location: Location) { 
     router.events.subscribe(val => {
-      if(location.path().indexOf('/login') === 0 || location.path().indexOf('/signup') === 0 || location.path().indexOf('/reset-password') === 0)
+      if(location.path().indexOf('/login') === 0 || location.path().indexOf('/signup') === 0 || location.path().indexOf('/reset-password') === 0) {
         this.showToolbar = false;
+        this.screenState = 'half';
+      }
       else
         this.showToolbar = true;
     });

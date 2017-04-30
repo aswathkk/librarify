@@ -50,7 +50,7 @@ md-select{
     font-size: 14px;
 }
 
-.message {
+.loading {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -59,7 +59,7 @@ md-select{
     font-size: 2em;
 }
 
-.message .msg {
+.loading .msg {
     font-size: .5em;
     margin-top: 1em;
 }

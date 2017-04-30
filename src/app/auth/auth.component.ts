@@ -37,6 +37,7 @@ export class AuthComponent implements OnInit {
   err;
   form;
   loader = '';
+  msg = '';
 
   constructor(private router: Router, private location: Location, private auth: AuthService) { }
 
@@ -57,7 +58,11 @@ export class AuthComponent implements OnInit {
       this.loader = 'Registering you, please wait';
       this.screen.emit('full');
       this.auth.signup(form.value)
-      .then(res => console.log(res))
+      .then(res => {
+        this.loader = '';
+        this.screen.emit('no');
+        this.msg = 'Registration success. Check your mail for confirmation';
+      })
       .catch(err => {
         this.loader = '';
         this.screen.emit('half');
@@ -74,7 +79,11 @@ export class AuthComponent implements OnInit {
       this.loader = 'Loading';
       this.screen.emit('full');
       this.auth.login(form.value)
-      .then(res => console.log(res))
+      .then(res => {
+        this.loader = '';
+        this.screen.emit('no');
+        this.msg = 'DONE !';
+      })
       .catch(err => {
         this.loader = '';
         this.screen.emit('half');
@@ -94,7 +103,11 @@ export class AuthComponent implements OnInit {
       this.loader = 'Resetting your password, plesase wait';
       this.screen.emit('full');
       this.auth.resetPassword(form.value)
-      .then(res => console.log(res))
+      .then(res => {
+        this.loader = '';
+        this.screen.emit('no');
+        this.msg = 'Check your mail for resetting your password.';
+      })
       .catch(err => {
         this.loader = '';
         this.screen.emit('half');
